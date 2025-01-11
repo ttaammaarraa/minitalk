@@ -16,7 +16,7 @@ void    send(int pid, char *str)
                 kill(pid, SIGUSR1);
             else
                 kill(pid, SIGUSR2);
-            usleep(200);
+            usleep(500);
             j++;
         }
         i++;
@@ -25,7 +25,7 @@ void    send(int pid, char *str)
     while (j < 8)
     {
         kill(pid, SIGUSR2); 
-        usleep(200);
+        usleep(500);
         j++;
     }
 }
