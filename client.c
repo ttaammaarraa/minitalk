@@ -20,6 +20,21 @@ void	sig_handle(int sig)
 		g_sig = 1;
 }
 
+void	send_null(int pid)
+{
+	int	j;
+
+	j = 0;
+	while (j < 8)
+	{
+		g_sig = 0;
+		kill(pid, SIGUSR1);
+		while (!g_sig)
+			;
+		j++;
+	}
+}
+
 void	send(char *str, int pid)
 {
 	int	i;
@@ -44,21 +59,13 @@ void	send(char *str, int pid)
 		}
 		i++;
 	}
-	j = 0;
-	while (j < 8)
-	{
-		g_sig = 0;
-		kill(pid, SIGUSR1);
-		while (!g_sig)
-			;
-		j++;
-	}
+	send_null(pid);
 }
 
 int	main(int argc, char **argv)
 {
 	struct sigaction	sa;
-	int			pid;
+	int					pid;
 
 	if (argc != 3)
 		return (1);
