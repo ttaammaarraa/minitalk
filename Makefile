@@ -7,7 +7,6 @@ SERVER_SRC = server.c
 CLIENT_SRC = client.c
 OBJ = obj
 LIBFT = ./libft
-PRINTF = ./ft_printf
 
 SERVER_OBJ = $(OBJ)/$(SERVER_SRC:.c=.o)
 CLIENT_OBJ = $(OBJ)/$(CLIENT_SRC:.c=.o)
@@ -24,22 +23,20 @@ $(LIBFT)/libft.a:
 $(PRINTF)/libftprintf.a:
 	@make -C $(PRINTF)
 
-$(NAME1): $(SERVER_OBJ) $(LIBFT)/libft.a $(PRINTF)/libftprintf.a
-	$(CC) $(CFLAGS) $(SERVER_OBJ) -L$(LIBFT) -lft -L$(PRINTF) -lftprintf -o $(NAME1)
+$(NAME1): $(SERVER_OBJ) $(LIBFT)/libft.a 
+	$(CC) $(CFLAGS) $(SERVER_OBJ) -L$(LIBFT) -lft  -o $(NAME1)
 
-$(NAME2): $(CLIENT_OBJ) $(LIBFT)/libft.a $(PRINTF)/libftprintf.a
-	$(CC) $(CFLAGS) $(CLIENT_OBJ) -L$(LIBFT) -lft -L$(PRINTF) -lftprintf -o $(NAME2)
+$(NAME2): $(CLIENT_OBJ) $(LIBFT)/libft.a
+	$(CC) $(CFLAGS) $(CLIENT_OBJ) -L$(LIBFT) -lft  -o $(NAME2)
 
 clean:
 	@rm -rf $(OBJ)
 	@make clean -C $(LIBFT)
-	@make clean -C $(PRINTF)
 
 fclean: clean
 	@rm -f $(NAME1)
 	@rm -f $(NAME2)
 	@make fclean -C $(LIBFT)
-	@make fclean -C $(PRINTF)
 
 re: fclean all
 

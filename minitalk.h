@@ -13,15 +13,8 @@
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# include "./ft_printf/ft_printf.h"
 # include "./libft/libft.h"
 # include <signal.h>
 # include <stdlib.h>
-
-typedef struct s_server_state
-{
-	char	*buffer;
-	size_t	length;
-}			t_server_state;
 
 #endif
