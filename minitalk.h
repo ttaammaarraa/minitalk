@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taabu-fe <taabu-fe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/12 13:26:07 by taabu-fe          #+#    #+#             */
-/*   Updated: 2025/01/12 13:26:08 by taabu-fe         ###   ########.fr       */
+/*   Created: 2025/01/14 11:58:23 by taabu-fe          #+#    #+#             */
+/*   Updated: 2025/01/14 17:09:22 by taabu-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-//#include <stdio.h>
-t_list	*ft_lstlast(t_list *lst)
+# include "./ft_printf/ft_printf.h"
+# include "./libft/libft.h"
+# include <signal.h>
+# include <stdlib.h>
+
+typedef struct s_server_state
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next != NULL)
-	{
-		lst = lst->next;
-	}
-	return (lst);
-}
+	char	*buffer;
+	size_t	length;
+}			t_server_state;
 
-/* int main()
-{
-	int data = 10;
-	t_list *p = ft_lstnew(&data);
-	int data2 = 50;
-	t_list *s = ft_lstnew(&data2);
-	p->next = s;
-	t_list *last = ft_lstlast(p);
-	printf("%d" , *(int *)last->content);
-
-} */
+#endif

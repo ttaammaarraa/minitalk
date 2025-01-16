@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taabu-fe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: taabu-fe <taabu-fe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 12:03:01 by taabu-fe          #+#    #+#             */
-/*   Updated: 2024/09/03 12:32:52 by taabu-fe         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:26:17 by taabu-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stddef.h>
-#include"libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

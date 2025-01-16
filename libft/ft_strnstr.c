@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taabu-fe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: taabu-fe <taabu-fe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:13 by taabu-fe          #+#    #+#             */
-/*   Updated: 2024/09/14 17:11:58 by taabu-fe         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:26:54 by taabu-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
@@ -29,18 +29,18 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	return (NULL);
 }
 /*#include <stdio.h>
-int main() {
-    char haystack[] = "Hello, world!";
-    char needle[] = "world";
-    size_t len = 12;
+int	main(void) {
+	char haystack[] = "Hello, world!";
+	char needle[] = "world";
+	size_t len = 12;
 
-    char *result = ft_strnstr(haystack, needle, len);
+	char *result = ft_strnstr(haystack, needle, len);
 
-    if (result) {
-        printf("Found: %s\n", result);
-    } else {
-        printf("Not found\n");
-    }
+	if (result) {
+		printf("Found: %s\n", result);
+	} else {
+		printf("Not found\n");
+	}
 
-    return 0;
+	return (0);
 }*/

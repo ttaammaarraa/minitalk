@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taabu-fe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: taabu-fe <taabu-fe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 15:49:50 by taabu-fe          #+#    #+#             */
-/*   Updated: 2024/09/15 15:50:44 by taabu-fe         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:25:09 by taabu-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 #include <limits.h>
 
 static int	ft_intlen(int n)
@@ -41,9 +41,9 @@ long	handling_minimuim(char *str, long n)
 
 char	*ft_itoa(int n)
 {
-	int			len;
-	long		num;
-	char		*str;
+	int		len;
+	long	num;
+	char	*str;
 
 	num = n;
 	len = ft_intlen(num);

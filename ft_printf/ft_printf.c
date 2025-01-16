@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taabu-fe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: taabu-fe <taabu-fe@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 09:34:42 by taabu-fe          #+#    #+#             */
-/*   Updated: 2024/10/06 17:32:15 by taabu-fe         ###   ########.fr       */
+/*   Updated: 2025/01/12 13:28:53 by taabu-fe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ int	ft_printf(const char *format, ...)
 	va_end(arg);
 	return (count);
 }
-

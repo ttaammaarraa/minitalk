@@ -1,152 +1,85 @@
-#include <signal.h>
-#include "./libft/libft.h"
-#include "./ft_printf/ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taabu-fe <taabu-fe@student.42amman.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/12 13:30:43 by taabu-fe          #+#    #+#             */
+/*   Updated: 2025/01/16 10:31:39 by taabu-fe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minitalk.h"
 
-/*void    handle(int sig)
+void    *ft_realloc(void *ptr, size_t old_size, size_t new_size)
 {
-  static unsigned char character = 0;
-    static int bit_position = 0;
+    void    *str;
 
-    if (sig == SIGUSR1)
-        character |= (1 << bit_position);
-    else if (sig == SIGUSR2)
-        character &= ~(1 << bit_position);
-
-    bit_position++;
-    if (bit_position == 8) // Assuming you print the character after 8 bits
+    str = malloc (new_size);
+    if (!str)
     {
-        ft_printf("%c", character);
-        character = 0;
-        bit_position = 0;
+        free (ptr);
+        return (NULL);
     }
-    else
-        return ;
+    ft_memcpy(str, ptr, old_size);
+    free (ptr);
+    return (str);
 }
 
-int main (void)
+void    signal_handler(int sig, siginfo_t *info, void *content)
 {
-    struct sigaction sa;
+    static char chr = 0;
+    static int  bit = 0;
+    static char *ptr = NULL;
+    static size_t size = 0;    
+    static size_t capacity = 0; 
 
+    (void)content;
+    if (sig == SIGUSR2)
+        chr |= (1 << bit);
+    bit++;
+    if (bit == 8)
+    {
+        bit = 0;
+        if (capacity == size)
+        {
+            if (capacity == 0)
+                capacity = 1024;
+            else
+                capacity *= 2;
+            ptr = ft_realloc(ptr, size, capacity);
+            if(!ptr)
+                exit(EXIT_FAILURE);
+        }
+        ptr[size++] = chr;
+        chr = 0;
+        if (ptr[size - 1] == '\0')
+        {
+            ft_putstr_fd("RECIEVED MESSAGE\n", 1);
+            ft_putstr_fd(ptr, 1);
+            free(ptr);  
+            ptr = NULL; 
+            size = 0;  
+            capacity = 0;
+        }
+        kill(info->si_pid, SIGUSR1);
+    }
+}
+
+int main()
+{
+    struct sigaction    sa;
+    
     ft_printf("%d\n", getpid());
-    
+    sa.sa_sigaction = signal_handler;
+    sa.sa_flags = SA_SIGINFO;
     sigemptyset(&sa.sa_mask);
-    sa.sa_handler = handle;
-    sa.sa_flags = 0;
-    
-    
-    if(sigaction(SIGUSR1, &sa, NULL) == -1)
-    {
-        ft_printf("ERORR");
-        return (1);
-    }
-    if (sigaction(SIGUSR2, &sa, NULL) == -1)
-    {
-        ft_printf("ERROR");
-        return (1);
-    }
-
-
-    while(1)
-        pause();
-}*/
-
-#include <signal.h>
-#include <stdlib.h>
-#include "./libft/libft.h"
-#include "./ft_printf/ft_printf.h"
-
-
-typedef struct s_server_state
-{
-    char *buffer;          
-    size_t length;       
-} t_server_state;
-
-t_server_state g_state = {NULL, 0}; 
-
-void *ft_realloc(void *ptr, size_t old_size, size_t new_size)
-{
-    void *new_ptr;
-
-    if (new_size == 0) 
-    {
-        free(ptr);
-        return NULL;
-    }
-    new_ptr = malloc(new_size);
-    if (!new_ptr)
-        return NULL; 
-    if (ptr)
-    {
-        ft_memcpy(new_ptr, ptr, old_size);
-        free(ptr);
-    }
-    return new_ptr;
-}
-
-void handle(int sig)
-{
-    static unsigned char character = 0; 
-    static int bit_position = 0;
-    if (sig == SIGUSR1)
-        character |= (1 << bit_position);
-    else if (sig == SIGUSR2)
-        character &= ~(1 << bit_position);
-
-    bit_position++;
-
-    if (bit_position == 8)
-    {
-        bit_position = 0;
-
-        if (character == '\0') 
-        {
-            if (g_state.buffer)
-            {
-                ft_printf("Received string: %s\n", g_state.buffer);
-                free(g_state.buffer); 
-                g_state.buffer = NULL; 
-                g_state.length = 0;
-            }
-        }
-        else
-        {
-            char *new_buffer = ft_realloc(g_state.buffer, g_state.length, g_state.length + 2); // +2 for new char and null terminator
-            if (!new_buffer)
-            {
-                ft_printf("Memory allocation error\n");
-                exit(1);
-            }
-            g_state.buffer = new_buffer;
-            g_state.buffer[g_state.length++] = character;
-            g_state.buffer[g_state.length] = '\0';
-        }
-        character = 0;
-    }
-}
-
-int main(void)
-{
-    struct sigaction sa;
-
-    ft_printf("Server PID: %d\n", getpid());
-
-    sigemptyset(&sa.sa_mask);
-    sa.sa_handler = handle;
-    sa.sa_flags = 0;
-
     if (sigaction(SIGUSR1, &sa, NULL) == -1)
-    {
-        ft_printf("ERROR: Could not set SIGUSR1 handler\n");
         return (1);
-    }
     if (sigaction(SIGUSR2, &sa, NULL) == -1)
-    {
-        ft_printf("ERROR: Could not set SIGUSR2 handler\n");
         return (1);
-    }
-
     while (1)
         pause();
+    return (0); 
 }
