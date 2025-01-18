@@ -43,7 +43,7 @@ void	send_util(int ch, int pid)
 		if (kill(pid, SIGUSR1) == -1)
 		{
 			ft_putstr_fd("PID ERROR :)\n", 2);
-			return ;
+			exit(1);
 		}
 	}
 	else
@@ -51,7 +51,7 @@ void	send_util(int ch, int pid)
 		if (kill(pid, SIGUSR2) == -1)
 		{
 			ft_putstr_fd("PID ERROR :)\n", 2);
-			return ;
+			exit(1);
 		}
 	}
 }
